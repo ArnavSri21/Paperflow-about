@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+/* Prevent "Cannot set property fetch of #<Window> which has only a getter" in browser extensions/iframes */
+(function() {
+  try {
+    var _fetch = window.fetch ? window.fetch.bind(window) : undefined;
+    Object.defineProperty(window, 'fetch', {
+      get: function() { return _fetch; },
+      set: function(fn) { _fetch = fn; },
+      configurable: true,
+      enumerable: true
+    });
+  } catch(e) {}
+})();
+</script>
 <meta charset="utf-8">
 <title>About Paper Flow — Anonymous & Open</title>
 <meta name="description" content="Paper Flow is an open, anonymous space for honest expression. No email, no phone, no verification.">

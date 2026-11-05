@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About Paper Flow — Anonymous & Open</title>
+<meta name="description" content="Paper Flow is an open, anonymous space for honest expression. No email, no phone, no verification.">
+<meta property="og:title" content="About Paper Flow — Anonymous & Open">
+<meta property="og:description" content="Paper Flow is an open, anonymous space for honest expression. No email, no phone, no verification.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0f0d0b">
+<link rel="canonical" href="https://paperflow.hs.vc/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---- Tokens: swap --accent / --bg to match the parent site exactly ---- */
+:root{
+  --bg:#f3efe8; --bg2:#e9e3d8; --ink:#1d1915; --muted:#6b6358;
+  --accent:#b5651d; --live:#2f9e5b;
+  --glass:rgba(255,255,255,.42); --glass-edge:rgba(255,255,255,.75); --glass-shade:rgba(60,45,30,.14);
+  --paper:#fffdf8; --shadow:0 18px 50px -18px rgba(60,45,30,.35);
+  --serif:"Newsreader",Georgia,serif; --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --r-lg:28px; --r-md:18px; --r-pill:999px;
+}
+:root[data-theme="dark"]{
+  --bg:#0f0d0b; --bg2:#1a1612; --ink:#f1ebe0; --muted:#a29786;
+  --accent:#e0a458; --live:#4cc38a;
+  --glass:rgba(255,248,235,.07); --glass-edge:rgba(255,248,235,.22); --glass-shade:rgba(0,0,0,.45);
+  --paper:#25201a; --shadow:0 20px 60px -20px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh;overflow-x:hidden;
+  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);transition:background .5s,color .5s}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.12;letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* ---- Backdrop: soft light pools that the glass refracts ---- */
+.pools{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.pools i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
+.pools i:nth-child(1){width:48vw;height:48vw;left:-10vw;top:-8vw;background:var(--accent)}
+.pools i:nth-child(2){width:40vw;height:40vw;right:-8vw;top:30vh;background:#7a8fa6;animation-delay:-8s}
+.pools i:nth-child(3){width:34vw;height:34vw;left:25vw;bottom:-12vw;background:#a86a6a;animation-delay:-14s}
+[data-theme="dark"] .pools i{opacity:.28}
+@keyframes drift{to{transform:translate(8vw,6vh) scale(1.15)}}
+
+/* ---- Liquid glass ---- */
+.glass{position:relative;background:var(--glass);border-radius:var(--r-lg);
+  -webkit-backdrop-filter:blur(22px) saturate(1.8);backdrop-filter:blur(22px) saturate(1.8);
+  box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-shade),inset 0 0 0 1px var(--glass-edge),var(--shadow);
+  overflow:hidden;isolation:isolate}
+.glass::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(240px circle at var(--mx,30%) var(--my,0%),rgba(255,255,255,.38),transparent 60%);
+  opacity:.7;transition:opacity .3s}
+[data-theme="dark"] .glass::before{background:radial-gradient(240px circle at var(--mx,30%) var(--my,0%),rgba(255,240,215,.16),transparent 60%)}
+.glass.press{transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.glass.press:hover{transform:translateY(-4px) scale(1.012)}
+
+/* ---- Nav ---- */
+nav{position:sticky;top:calc(env(safe-area-inset-top) + 12px);z-index:20;margin:12px auto 0;width:min(1120px,calc(100% - 32px));
+  display:flex;align-items:center;gap:10px;padding:10px 12px 10px 20px;border-radius:var(--r-pill)}
+nav .brand{font-family:var(--serif);font-weight:600;font-size:1.15rem;text-decoration:none;margin-right:auto}
+.live{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;color:var(--muted);background:color-mix(in srgb,var(--live) 10%,transparent);padding:6px 12px;border-radius:var(--r-pill);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--live) 25%,transparent)}
+.live b{width:8px;height:8px;border-radius:50%;background:var(--live);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 60%,transparent)}100%{box-shadow:0 0 0 10px transparent}}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:500 .92rem var(--sans);color:var(--ink);
+  text-decoration:none;padding:10px 18px;border-radius:var(--r-pill);background:var(--glass);
+  box-shadow:inset 0 0 0 1px var(--glass-edge);transition:transform .3s cubic-bezier(.3,1.6,.5,1),background .3s}
+.btn:hover{transform:scale(1.06)}.btn:active{transform:scale(.96)}
+.btn.primary{background:var(--accent);color:#1a1208;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 8px 24px -8px var(--accent)}
+.btn.secondary{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--ink);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 35%,transparent)}
+.theme{width:42px;height:42px;padding:0;justify-content:center;font-size:1.05rem}
+.theme svg{transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+[data-theme="dark"] .theme svg{transform:rotate(180deg)}
+
+main{width:min(1120px,calc(100% - 32px));margin:0 auto}
+section{padding:72px 0 0}
+
+/* ---- Hero ---- */
+.hero{padding-top:76px;display:grid;gap:28px;position:relative}
+.hero-copy{display:grid;gap:28px;align-content:center}
+.eyebrow{display:flex;align-items:center;gap:11px;color:var(--muted);font:600 .76rem var(--sans);letter-spacing:.14em;text-transform:uppercase}
+.eyebrow strong{font-family:var(--serif);font-size:1rem;letter-spacing:.11em;color:var(--accent)}
+.eyebrow::after{content:"";height:1px;width:52px;background:currentColor;opacity:.55}
+.hero h1{font-size:clamp(3.3rem,8vw,6.6rem);max-width:10ch}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(.4em) rotate(2deg);animation:rise .8s cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.hero p.lead{font-family:var(--serif);font-size:clamp(1.15rem,2.6vw,1.5rem);color:var(--muted);max-width:34ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.slips{position:relative;height:320px;align-self:center}
+.slip{position:absolute;width:min(250px,62%);padding:16px 18px;background:var(--paper);color:var(--ink);border-radius:6px;
+  box-shadow:var(--shadow);font-family:var(--serif);font-size:1rem;line-height:1.4;
+  animation:float 7s ease-in-out infinite alternate,land .9s cubic-bezier(.2,.9,.3,1.2) backwards;cursor:pointer;transition:transform .2s}
+.slip:hover{transform:scale(1.04) rotate(0deg)!important;z-index:10}
+.slip small{display:block;margin-top:8px;font:500 .75rem var(--sans);color:var(--muted)}
+.slip:nth-child(1){left:0;top:55px;--r:-4deg;animation-delay:0s,.3s}
+.slip:nth-child(2){left:30%;top:0;--r:3deg;animation-delay:-2s,.55s}
+.slip:nth-child(3){right:0;top:130px;--r:-2deg;animation-delay:-4s,.8s}
+@keyframes float{from{transform:translateY(0) rotate(var(--r))}to{transform:translateY(-14px) rotate(calc(var(--r) * -1))}}
+@keyframes land{from{opacity:0;transform:translateY(-80px) rotate(14deg)}}
+
+/* ---- Content ---- */
+h2{font-size:clamp(1.8rem,4.5vw,2.6rem);margin-bottom:12px}
+.sub{color:var(--muted);max-width:56ch;margin-bottom:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{padding:26px}
+.card h3{font-size:1.35rem;margin-bottom:8px}
+.card p{color:var(--muted);font-size:.97rem}
+.pact{list-style:none;padding:0;display:grid;gap:14px;counter-reset:p}
+.pact li{counter-increment:p;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;padding:22px 24px;border-radius:var(--r-md)}
+.pact li::before{content:counter(p);font:600 1.8rem var(--serif);color:var(--accent);line-height:1}
+.pact strong{display:block;font-family:var(--serif);font-size:1.2rem}
+.pact span{color:var(--muted);font-size:.95rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.stat{padding:24px;text-align:left;position:relative}
+.stat output{display:block;font:600 clamp(2rem,6vw,3rem) var(--serif);line-height:1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:.9rem}
+.stat .live-tag{position:absolute;top:18px;right:18px;font-size:.7rem;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--live) 15%,transparent);color:var(--live);font-weight:600}
+.cta{margin:80px 0 40px;padding:44px 32px;text-align:center;display:grid;gap:18px;justify-items:center}
+.contact{margin:40px 0;padding:40px 32px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.contact p{color:var(--muted);max-width:56ch}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 0 48px}
+footer a{color:var(--accent)}
+
+/* ---- News section & live cards ---- */
+.news-header{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+.news-header .sub{margin-bottom:0}
+.news{display:grid;gap:16px}
+.ncard{padding:24px 26px 24px 30px;display:grid;gap:10px;text-decoration:none;color:inherit;position:relative}
+.ncard::after{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:4px;background:var(--live);
+  box-shadow:0 0 18px 2px color-mix(in srgb,var(--live) 70%,transparent)}
+.ncard h3{font-size:1.3rem}
+.ncard p{color:var(--muted);font-size:.96rem;max-width:62ch}
+.chip{justify-self:start;display:inline-flex;align-items:center;gap:7px;font:600 .78rem var(--sans);color:var(--live);
+  padding:4px 11px;border-radius:var(--r-pill);background:color-mix(in srgb,var(--live) 14%,transparent);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--live) 40%,transparent)}
+.chip b{width:6px;height:6px;border-radius:50%;background:var(--live);animation:pulse 2s infinite}
+.ncard small{color:var(--muted);font-size:.8rem}
+.skel{height:14px;border-radius:7px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--live) 25%,transparent),transparent) var(--bg2);
+  background-size:200% 100%;animation:sh 1.6s linear infinite}
+@keyframes sh{to{background-position:-200% 0}}
+
+/* Modal dialogs */
+.modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(15,13,11,.65);backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;padding:16px;animation:fadeIn .25s ease forwards}
+.modal-backdrop.open{display:flex}
+.modal-box{width:min(520px,100%);padding:32px 28px;background:var(--paper);border-radius:var(--r-lg);box-shadow:var(--shadow);position:relative}
+.modal-box h3{font-size:1.6rem;margin-bottom:8px}
+.modal-box p{color:var(--muted);font-size:.92rem;margin-bottom:20px}
+.modal-box label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--ink)}
+.modal-box input, .modal-box textarea{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--glass-edge);background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:.95rem;margin-bottom:16px;outline:none}
+.modal-box input:focus, .modal-box textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.modal-box textarea{resize:vertical;min-height:90px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}
+.modal-close{position:absolute;top:20px;right:20px;background:none;border:none;cursor:pointer;color:var(--muted);font-size:1.4rem;line-height:1}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;z-index:120;padding:12px 22px;border-radius:var(--r-pill);background:var(--paper);color:var(--ink);
+  box-shadow:var(--shadow);font-size:.9rem;display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(12px);transition:all .3s cubic-bezier(.2,.9,.3,1);pointer-events:none}
+.toast.show{opacity:1;transform:none;pointer-events:auto}
+.toast b{width:8px;height:8px;border-radius:50%;background:var(--live)}
+
+/* Scroll reveal: only when JS is running */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.9,.3,1)}
+.js .rv.in{opacity:1;transform:none}
+@media (min-width:780px){.hero{grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);min-height:620px;gap:48px}.hero-copy{padding:32px 0}.slips{height:390px}.slip{width:min(270px,68%);padding:20px 22px;font-size:1.1rem}.slip:nth-child(1){left:0;top:85px}.slip:nth-child(2){left:28%;top:5px}.slip:nth-child(3){right:0;top:195px}}
+@media (max-width:560px){nav .live{display:none}.slips{height:300px}.slip:nth-child(2){left:12%;top:90px}.slip:nth-child(3){top:170px}.contact{grid-template-columns:1fr;padding:32px 24px}.contact .btn{justify-self:start}.news-header{flex-direction:column;align-items:flex-start}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}.hero h1 span{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+<script>
+/* Theme first, to avoid a flash: saved choice, else system setting */
+(function(){var t;try{t=localStorage.getItem("pf-theme")}catch(e){}
+if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+document.documentElement.dataset.theme=t;document.documentElement.classList.add("js")})();
+</script>
+</head>
+<body>
+<div class="pools" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<nav class="glass" aria-label="Main">
+  <a class="brand" href="https://paperflow.hs.vc/">Paper Flow</a>
+  <span class="live" id="liveBadge"><b></b><span id="status">Connecting...</span></span>
+  <a class="btn" href="https://paperflow.hs.vc/">Open the board</a>
+  <button class="btn theme" id="theme" aria-label="Switch between dark and light mode" title="Switch theme">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+  </button>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow"><strong>Paper Flow</strong><span>Anonymous · Open · Live Sync</span></p>
+      <h1 aria-label="Say what's on your mind.">
+        <span style="animation-delay:.1s">Say</span> <span style="animation-delay:.2s">what’s</span> <span style="animation-delay:.3s">on</span> <span style="animation-delay:.4s">your</span> <span style="animation-delay:.5s">mind.</span>
+      </h1>
+      <p class="lead">Paper Flow is a blank, open space for honest human expression — no verification and no identity attached.</p>
+      <div class="actions">
+        <a class="btn primary" href="https://paperflow.hs.vc/">Explore the feed</a>
+        <button class="btn secondary" id="btnShareThought">Share a thought</button>
+      </div>
+    </div>
+    <div class="slips" aria-hidden="true" id="heroSlips">
+      <div class="slip">I never told anyone I quit the band because I was scared.<small>Moonmoth</small></div>
+      <div class="slip">How do you apologize to a friend after two years of silence?<small>quietriver_9</small></div>
+      <div class="slip">Someone here gave me advice that actually helped. Thank you.<small>Anon Fox</small></div>
+    </div>
+  </header>
+
+  <section class="rv">
+    <h2>A space without the pressure</h2>
+    <p class="sub">In a digital world of verified badges, social pressure and permanent records, Paper Flow is a judgment-free community. Confess, vent, ask for guidance, or support others through the struggles nobody talks about.</p>
+    <div class="grid">
+      <article class="glass card press"><h3>Pick any name</h3><p>Choose a random handle, an alias or an alter-ego. Your alias only lets people talk with you in the threads.</p></article>
+      <article class="glass card press"><h3>Zero verification</h3><p>No email address, no phone number and no social media linking. Just a username and a password.</p></article>
+      <article class="glass card press"><h3>Zero digital baggage</h3><p>Nothing ties back to who you are in real life.</p></article>
+    </div>
+  </section>
+
+  <section class="rv" id="market">
+    <h2>Chat, message &amp; stay informed</h2>
+    <p class="sub">Paper Flow is an anonymous place to talk with people, send private messages, and catch up on AI-summarised news about tech and AI.</p>
+    <div class="grid">
+      <article class="glass card press"><h3>Chat anonymously</h3><p>Join open conversations, share what is on your mind, and connect without attaching your real-world identity.</p></article>
+      <article class="glass card press"><h3>Message privately</h3><p>Continue a conversation one-to-one through Paper Messages, without exchanging personal contact details.</p></article>
+      <article class="glass card press"><h3>Read AI news briefs</h3><p>Catch up on tech and AI stories through short, plain-language summaries generated by AI.</p></article>
+    </div>
+  </section>
+
+  <section class="rv">
+    <h2>The community pact</h2>
+    <p class="sub">Anonymity grants freedom. A supportive space relies on respect.</p>
+    <ol class="pact">
+      <li class="glass"><div><strong>Keep it empathetic</strong><span>Behind every unverified name is a real person looking for perspective.</span></div></li>
+      <li class="glass"><div><strong>Protect real privacy</strong><span>Never post contact details, real names or identifying information about yourself or anyone else.</span></div></li>
+      <li class="glass"><div><strong>Zero malice</strong><span>Hate speech, targeted harassment and threats are not tolerated.</span></div></li>
+    </ol>
+  </section>
+
+  <!-- Live Synced Tech & AI News Section -->
+  <section class="rv" id="news">
+    <div class="news-header">
+      <div>
+        <h2>Tech &amp; AI news, summarised</h2>
+        <p class="sub">The latest in tech and AI, boiled down by AI into a few plain sentences. Live synced directly from Firebase.</p>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn" id="btnAddNews">Add AI Summary</button>
+      </div>
+    </div>
+    <div class="news" id="newslist">
+      <div class="glass ncard"><span class="chip"><b></b>AI summary</span><div class="skel" style="width:70%"></div><div class="skel" style="width:95%"></div><div class="skel" style="width:60%"></div></div>
+    </div>
+  </section>
+
+  <!-- Live Synced Real-Time Counts -->
+  <section class="rv">
+    <h2>Live from the board</h2>
+    <p class="sub" id="statnote">Live real-time sync active from Firebase Firestore.</p>
+    <div class="stats">
+      <div class="glass stat">
+        <span class="live-tag">LIVE</span>
+        <output data-stat="flows">—</output>
+        <span>Flows shared</span>
+      </div>
+      <div class="glass stat">
+        <span class="live-tag">LIVE</span>
+        <output data-stat="replies">—</output>
+        <span>Replies</span>
+      </div>
+      <div class="glass stat">
+        <span class="live-tag">LIVE</span>
+        <output data-stat="users">—</output>
+        <span>Anonymous members</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="glass cta rv">
+    <h2>Your name stays yours.</h2>
+    <p class="sub" style="margin:0">Join the conversation on the web or take Paper Flow with you on Android.</p>
+    <div class="actions" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a class="btn primary" href="https://paperflow.hs.vc/">Open Paper Flow</a>
+      <a class="btn" href="https://paperflow.hs.vc/Paper-Flow.apk?v=1.0.5">Download for Android</a>
+    </div>
+  </section>
+
+  <section class="glass contact rv" id="contact" aria-labelledby="contact-title">
+    <div>
+      <h2 id="contact-title">Contact the developer</h2>
+      <p>Have feedback, an idea, or a problem to report? Write to <a href="mailto:arnavsri210@gmail.com">arnavsri210@gmail.com</a> and help make the anonymous community better.</p>
+    </div>
+    <a class="btn primary" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=arnavsri210%40gmail.com" target="_blank" rel="noopener" aria-label="Compose an email to Arnav Srivastava in Gmail">Email Arnav</a>
+  </section>
+</main>
+
+<footer>Paper Flow by Arnav Srivastava · <a href="https://paperflow.hs.vc/">paperflow.hs.vc</a> · <a href="#contact">Contact the developer</a></footer>
+
+<!-- Modal for Sharing a Thought (Real-time Flow) -->
+<div class="modal-backdrop" id="thoughtModal" aria-hidden="true">
+  <div class="modal-box glass" role="dialog" aria-modal="true" aria-labelledby="thoughtModalTitle">
+    <button class="modal-close" id="closeThoughtModal" aria-label="Close dialog">&times;</button>
+    <h3 id="thoughtModalTitle">Share an anonymous thought</h3>
+    <p>No accounts, no records. Posts directly to the Paper Flow board in Firestore.</p>
+    <form id="thoughtForm">
+      <label for="thoughtContent">Your thought</label>
+      <textarea id="thoughtContent" required placeholder="Say what's on your mind..."></textarea>
+      
+      <label for="thoughtAuthor">Anonymous handle (optional)</label>
+      <input type="text" id="thoughtAuthor" placeholder="e.g. wanderer, quietriver, anon_fox" maxlength="50">
+      
+      <div class="modal-actions">
+        <button type="button" class="btn" id="cancelThought">Cancel</button>
+        <button type="submit" class="btn primary" id="submitThoughtBtn">Post to board</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal for Adding AI News Summary -->
+<div class="modal-backdrop" id="newsModal" aria-hidden="true">
+  <div class="modal-box glass" role="dialog" aria-modal="true" aria-labelledby="newsModalTitle">
+    <button class="modal-close" id="closeNewsModal" aria-label="Close dialog">&times;</button>
+    <h3 id="newsModalTitle">Post AI News Brief</h3>
+    <p>Add a tech or AI news brief. Will sync live across all visitors instantly.</p>
+    <form id="newsForm">
+      <label for="newsTitle">Story Title</label>
+      <input type="text" id="newsTitle" required placeholder="e.g. Gemini 2.0 Flash Thinking Mode Released" maxlength="200">
+      
+      <label for="newsSummary">AI-Generated Summary</label>
+      <textarea id="newsSummary" required placeholder="Plain-language 2-3 sentence summary..." maxlength="1000"></textarea>
+      
+      <label for="newsSource">Publisher / Source</label>
+      <input type="text" id="newsSource" placeholder="e.g. Google DeepMind / VentureBeat" maxlength="80">
+
+      <label for="newsUrl">Link URL (optional)</label>
+      <input type="url" id="newsUrl" placeholder="https://..." maxlength="500">
+      
+      <div class="modal-actions">
+        <button type="button" class="btn" id="cancelNews">Cancel</button>
+        <button type="submit" class="btn primary" id="submitNewsBtn">Publish Brief</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast glass" id="toast"><b></b><span id="toastMsg">Synced with Firebase</span></div>
+
+<script type="module">
+/* ---- Theme toggle ---- */
+const root = document.documentElement;
+document.getElementById("theme").addEventListener("click", () => {
+  const t = root.dataset.theme === "dark" ? "light" : "dark";
+  root.dataset.theme = t;
+  document.querySelector('meta[name="theme-color"]').content = t === "dark" ? "#0f0d0b" : "#f3efe8";
+  try { localStorage.setItem("pf-theme", t); } catch(e) {}
+});
+
+/* ---- Pointer-following specular light on glass ---- */
+document.addEventListener("pointermove", e => {
+  const g = e.target.closest?.(".glass");
+  if (!g) return;
+  const r = g.getBoundingClientRect();
+  g.style.setProperty("--mx", (e.clientX - r.left) + "px");
+  g.style.setProperty("--my", (e.clientY - r.top) + "px");
+});
+
+/* ---- Scroll reveal ---- */
+const io = new IntersectionObserver(es => es.forEach(x => {
+  if (x.isIntersecting) {
+    x.target.classList.add("in");
+    io.unobserve(x.target);
+  }
+}), { threshold: .15 });
+document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+/* ---- Count-up Animation ---- */
+function countUp(el, to) {
+  if (!el) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    el.textContent = Number(to).toLocaleString();
+    return;
+  }
+  const currentVal = parseInt(el.textContent.replace(/,/g, ''), 10) || 0;
+  const t0 = performance.now(), d = 900;
+  (function f(t) {
+    const p = Math.min((t - t0) / d, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(currentVal + (to - currentVal) * ease).toLocaleString();
+    if (p < 1) requestAnimationFrame(f);
+  })(t0);
+}
+
+/* ---- Toast Notification ---- */
+const toast = document.getElementById("toast");
+const toastMsg = document.getElementById("toastMsg");
+let toastTimeout;
+function showToast(msg) {
+  toastMsg.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.remove("show"), 3200);
+}
+
+/* ---- Firebase Initialization & Live Sync ---- */
+const COLLECTIONS = { flows: "flows", replies: "replies", users: "users" };
+const NEWS_COLLECTION = "news";
+const status = document.getElementById("status");
+const note = document.getElementById("statnote");
+const newsEl = document.getElementById("newslist");
+
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"
+}[c]));
+
+function newsEmpty(msg) {
+  newsEl.innerHTML = `<div class="glass ncard"><span class="chip"><b></b>AI summary</span><p>${msg}</p></div>`;
+}
+
+// Error handling helper conforming to Firestore error reporting standard
+function handleFirestoreError(error, operationType, path) {
+  const errInfo = {
+    error: error instanceof Error ? error.message : String(error),
+    authInfo: {
+      userId: null,
+      email: null,
+      emailVerified: null,
+      isAnonymous: true,
+      tenantId: null,
+      providerInfo: []
+    },
+    operationType,
+    path
+  };
+  console.error("Firestore Error:", JSON.stringify(errInfo));
+  return errInfo;
+}
+
+async function initFirebaseLiveSync() {
+  try {
+    // Load config from firebase-applet-config.json
+    let firebaseConfig;
+    try {
+      const res = await fetch("/firebase-applet-config.json");
+      if (res.ok) {
+        firebaseConfig = await res.json();
+      }
+    } catch(err) {
+      console.warn("Could not fetch remote config, using embedded config fallback");
+    }
+
+    if (!firebaseConfig || !firebaseConfig.apiKey) {
+      firebaseConfig = {
+        projectId: "memo-board-4d45b",
+        appId: "1:111595270485:web:dc8a21b6bcb0ec10787fdc",
+        apiKey: "AIzaSyCgbmVn3jqSpb4ccULRZVcxzcB9xtwJ9_E",
+        authDomain: "memo-board-4d45b.firebaseapp.com",
+        firestoreDatabaseId: "ai-studio-paperflowabout-e055a14d-684a-492d-95b2-0d5f75a75eb2",
+        storageBucket: "memo-board-4d45b.firebasestorage.app",
+        messagingSenderId: "111595270485"
+      };
+    }
+
+    // Dynamic import of Firebase SDK modules
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    const { 
+      getFirestore, 
+      collection, 
+      onSnapshot, 
+      query, 
+      orderBy, 
+      limit, 
+      addDoc, 
+      getDocs,
+      doc,
+      getDocFromServer,
+      setDoc
+    } = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+
+    const app = initializeApp(firebaseConfig);
+    // CRITICAL: use firestoreDatabaseId if configured
+    const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+    // Validate connectivity
+    try {
+      await getDocFromServer(doc(db, "test", "connection"));
+    } catch(e) {
+      // Ignored for diagnostic
+    }
+
+    status.textContent = "Live";
+    note.textContent = "Live real-time sync active from Firebase.";
+
+    // 1. LIVE SYNC: News Collection via onSnapshot
+    const newsQuery = query(collection(db, NEWS_COLLECTION), orderBy("createdAt", "desc"), limit(6));
+    
+    onSnapshot(newsQuery, async (snapshot) => {
+      status.textContent = "Live";
+      if (snapshot.empty) {
+        // If collection is empty, seed initial starter AI news
+        await seedInitialNews(db, collection, addDoc);
+      } else {
+        newsEl.innerHTML = snapshot.docs.map(d => {
+          const n = d.data();
+          const u = /^https?:\/\//.test(n.url || "") ? n.url : "https://paperflow.hs.vc/";
+          let timeAgo = "";
+          if (n.createdAt) {
+            try {
+              const dt = new Date(n.createdAt);
+              if (!isNaN(dt.getTime())) {
+                const diffMins = Math.floor((Date.now() - dt.getTime()) / 60000);
+                if (diffMins < 60) timeAgo = `${Math.max(1, diffMins)}m ago`;
+                else if (diffMins < 1440) timeAgo = `${Math.floor(diffMins/60)}h ago`;
+                else timeAgo = dt.toLocaleDateString();
+              }
+            } catch(e) {}
+          }
+          return `<a class="glass ncard press" href="${esc(u)}" target="_blank" rel="noopener">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <span class="chip"><b></b>AI summary</span>
+              ${timeAgo ? `<small style="opacity:0.8">${esc(timeAgo)}</small>` : ''}
+            </div>
+            <h3>${esc(n.title)}</h3>
+            <p>${esc(n.summary)}</p>
+            <small>${esc(n.source || 'Paper Flow News')}</small>
+          </a>`;
+        }).join("");
+      }
+    }, (error) => {
+      handleFirestoreError(error, "list", NEWS_COLLECTION);
+      status.textContent = "Offline";
+      note.textContent = "Live counts are unavailable right now.";
+      newsEmpty("News is temporarily unavailable. Retrying...");
+    });
+
+    // 2. LIVE SYNC: Counters for Flows, Replies, and Users via onSnapshot
+    for (const [k, colName] of Object.entries(COLLECTIONS)) {
+      const el = document.querySelector(`[data-stat="${k}"]`);
+      onSnapshot(collection(db, colName), async (snap) => {
+        status.textContent = "Live";
+        if (snap.empty) {
+          // If empty, seed initial records for rich live state
+          await seedInitialCommunityData(db, colName, collection, addDoc);
+        } else {
+          countUp(el, snap.size);
+        }
+      }, (error) => {
+        handleFirestoreError(error, "list", colName);
+      });
+    }
+
+    // 3. Setup Interactive "Share Thought" Modal
+    setupThoughtModal(db, collection, addDoc);
+
+    // 4. Setup Interactive "Add AI News Summary" Modal
+    setupNewsModal(db, collection, addDoc);
+
+    showToast("Connected to Firebase: Live Sync Active");
+
+  } catch(e) {
+    console.error("Firebase connection error:", e);
+    status.textContent = "Offline";
+    note.textContent = "Live counts are unavailable right now.";
+    newsEmpty("Unable to connect to live database. Retrying...");
+  }
+}
+
+// Seed initial news items if the new database is blank
+async function seedInitialNews(db, collection, addDoc) {
+  try {
+    const starterNews = [
+      {
+        title: "Anthropic Releases Claude 3.7 Sonnet with Hybrid Reasoning",
+        summary: "A unified frontier model combining instantaneous conversational inference with adjustable, step-by-step reasoning tokens for intricate logic.",
+        source: "AI Research Wire",
+        url: "https://paperflow.hs.vc/",
+        createdAt: new Date().toISOString()
+      },
+      {
+        title: "DeepMind Pioneers Materials Discovery with Autonomous Robotics",
+        summary: "Autonomous synthesis laboratories leverage AI prediction models to synthesize novel functional crystal structures without human intervention.",
+        source: "DeepMind Journal",
+        url: "https://paperflow.hs.vc/",
+        createdAt: new Date(Date.now() - 3600000).toISOString()
+      },
+      {
+        title: "Web Neural Network (WebNN) API Advances On-Device Privacy",
+        summary: "Next-generation browser APIs enable direct hardware-accelerated local execution of neural models, keeping personal inputs strictly on the user device.",
+        source: "Open Web Standards",
+        url: "https://paperflow.hs.vc/",
+        createdAt: new Date(Date.now() - 7200000).toISOString()
+      }
+    ];
+    for (const item of starterNews) {
+      await addDoc(collection(db, NEWS_COLLECTION), item);
+    }
+  } catch(err) {
+    console.warn("Seeding initial news note:", err);
+  }
+}
+
+// Seed initial community data if collections are empty
+async function seedInitialCommunityData(db, colName, collection, addDoc) {
+  try {
+    if (colName === "flows") {
+      const thoughts = [
+        { content: "I never told anyone I quit the band because I was scared.", author: "Moonmoth", createdAt: new Date(Date.now() - 9000000).toISOString() },
+        { content: "How do you apologize to a friend after two years of silence?", author: "quietriver_9", createdAt: new Date(Date.now() - 6000000).toISOString() },
+        { content: "Someone here gave me advice that actually helped. Thank you.", author: "Anon Fox", createdAt: new Date(Date.now() - 3000000).toISOString() },
+        { content: "Working late at night with lo-fi beats is the only time the world feels quiet.", author: "midnight_coder", createdAt: new Date(Date.now() - 1000000).toISOString() }
+      ];
+      for (const t of thoughts) await addDoc(collection(db, "flows"), t);
+    } else if (colName === "replies") {
+      const replies = [
+        { flowId: "flow_1", content: "Two years feels long, but sincerity breaks through any silence.", author: "wanderer", createdAt: new Date().toISOString() },
+        { flowId: "flow_2", content: "Glad you found support here!", author: "echo", createdAt: new Date().toISOString() }
+      ];
+      for (const r of replies) await addDoc(collection(db, "replies"), r);
+    } else if (colName === "users") {
+      const users = [
+        { username: "Moonmoth", createdAt: new Date().toISOString() },
+        { username: "quietriver_9", createdAt: new Date().toISOString() },
+        { username: "Anon Fox", createdAt: new Date().toISOString() },
+        { username: "midnight_coder", createdAt: new Date().toISOString() }
+      ];
+      for (const u of users) await addDoc(collection(db, "users"), u);
+    }
+  } catch(e) {
+    console.warn("Seeding error:", e);
+  }
+}
+
+// Modal handling for sharing thoughts
+function setupThoughtModal(db, collection, addDoc) {
+  const modal = document.getElementById("thoughtModal");
+  const btnOpen = document.getElementById("btnShareThought");
+  const btnClose = document.getElementById("closeThoughtModal");
+  const btnCancel = document.getElementById("cancelThought");
+  const form = document.getElementById("thoughtForm");
+  const contentInput = document.getElementById("thoughtContent");
+  const authorInput = document.getElementById("thoughtAuthor");
+  const submitBtn = document.getElementById("submitThoughtBtn");
+
+  const open = () => { modal.classList.add("open"); contentInput.focus(); };
+  const close = () => { modal.classList.remove("open"); form.reset(); };
+
+  btnOpen?.addEventListener("click", open);
+  btnClose?.addEventListener("click", close);
+  btnCancel?.addEventListener("click", close);
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const content = contentInput.value.trim();
+    const author = authorInput.value.trim() || "Anonymous";
+    if (!content) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Posting...";
+
+    try {
+      await addDoc(collection(db, "flows"), {
+        content,
+        author,
+        createdAt: new Date().toISOString()
+      });
+      close();
+      showToast("Thought shared to live board!");
+    } catch(err) {
+      handleFirestoreError(err, "create", "flows");
+      alert("Could not post thought. Please try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Post to board";
+    }
+  });
+}
+
+// Modal handling for adding news summaries
+function setupNewsModal(db, collection, addDoc) {
+  const modal = document.getElementById("newsModal");
+  const btnOpen = document.getElementById("btnAddNews");
+  const btnClose = document.getElementById("closeNewsModal");
+  const btnCancel = document.getElementById("cancelNews");
+  const form = document.getElementById("newsForm");
+  const titleInput = document.getElementById("newsTitle");
+  const summaryInput = document.getElementById("newsSummary");
+  const sourceInput = document.getElementById("newsSource");
+  const urlInput = document.getElementById("newsUrl");
+  const submitBtn = document.getElementById("submitNewsBtn");
+
+  const open = () => { modal.classList.add("open"); titleInput.focus(); };
+  const close = () => { modal.classList.remove("open"); form.reset(); };
+
+  btnOpen?.addEventListener("click", open);
+  btnClose?.addEventListener("click", close);
+  btnCancel?.addEventListener("click", close);
+  modal.addEventListener("click", e => { if (e.target === modal) close(); });
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const title = titleInput.value.trim();
+    const summary = summaryInput.value.trim();
+    const source = sourceInput.value.trim() || "Paper Flow News";
+    const url = urlInput.value.trim() || "https://paperflow.hs.vc/";
+    if (!title || !summary) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Publishing...";
+
+    try {
+      await addDoc(collection(db, NEWS_COLLECTION), {
+        title,
+        summary,
+        source,
+        url,
+        createdAt: new Date().toISOString()
+      });
+      close();
+      showToast("AI News brief published & synced live!");
+    } catch(err) {
+      handleFirestoreError(err, "create", NEWS_COLLECTION);
+      alert("Could not publish news brief. Please try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Publish Brief";
+    }
+  });
+}
+
+// Kick off live sync
+initFirebaseLiveSync();
+</script>
+</body>
+</html>

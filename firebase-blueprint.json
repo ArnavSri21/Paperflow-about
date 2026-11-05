@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "News": {
+      "title": "News Story",
+      "description": "AI-summarized tech and AI news stories",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 300, "description": "The title of the news story" },
+        "summary": { "type": "string", "maxLength": 2000, "description": "AI-generated short summary" },
+        "source": { "type": "string", "maxLength": 100, "description": "Source publisher name" },
+        "url": { "type": "string", "maxLength": 1000, "description": "Original article link URL" },
+        "createdAt": { "type": "string", "description": "Timestamp when the story was created" }
+      },
+      "required": ["title", "summary"]
+    },
+    "Flow": {
+      "title": "Flow Post",
+      "description": "Anonymous public post on Paper Flow",
+      "type": "object",
+      "properties": {
+        "content": { "type": "string", "maxLength": 2000, "description": "Content of the anonymous thought" },
+        "author": { "type": "string", "maxLength": 100, "description": "Anonymous alias or username" },
+        "createdAt": { "type": "string", "description": "Timestamp of creation" }
+      },
+      "required": ["content"]
+    },
+    "Reply": {
+      "title": "Reply",
+      "description": "Reply to an anonymous flow",
+      "type": "object",
+      "properties": {
+        "flowId": { "type": "string", "maxLength": 128, "description": "Associated Flow document ID" },
+        "content": { "type": "string", "maxLength": 2000, "description": "Reply content" },
+        "author": { "type": "string", "maxLength": 100, "description": "Anonymous alias or username" },
+        "createdAt": { "type": "string", "description": "Timestamp of creation" }
+      },
+      "required": ["content"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Anonymous community member account",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string", "maxLength": 100, "description": "Chosen handle/alias" },
+        "createdAt": { "type": "string", "description": "Account registration timestamp" }
+      },
+      "required": ["username"]
+    }
+  },
+  "firestore": {
+    "/news/{newsId}": {
+      "schema": { "$ref": "#/entities/News" },
+      "description": "Public AI-summarized tech & AI news collection"
+    },
+    "/flows/{flowId}": {
+      "schema": { "$ref": "#/entities/Flow" },
+      "description": "Public anonymous flows collection"
+    },
+    "/replies/{replyId}": {
+      "schema": { "$ref": "#/entities/Reply" },
+      "description": "Replies to anonymous flows"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Anonymous community member profiles"
+    }
+  }
+}

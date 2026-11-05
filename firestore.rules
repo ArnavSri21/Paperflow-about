@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global Default Deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == 'arnavsri210@gmail.com' && request.auth.token.email_verified == true) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidNews(data) {
+      return data.keys().hasAll(['title', 'summary']) &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 300 &&
+        data.summary is string && data.summary.size() > 0 && data.summary.size() <= 2000 &&
+        (!('source' in data) || (data.source is string && data.source.size() <= 100)) &&
+        (!('url' in data) || (data.url is string && data.url.size() <= 1000));
+    }
+
+    function isValidFlow(data) {
+      return data.keys().hasAll(['content']) &&
+        data.content is string && data.content.size() > 0 && data.content.size() <= 2000 &&
+        (!('author' in data) || (data.author is string && data.author.size() <= 100));
+    }
+
+    function isValidReply(data) {
+      return data.keys().hasAll(['content']) &&
+        data.content is string && data.content.size() > 0 && data.content.size() <= 2000 &&
+        (!('flowId' in data) || (data.flowId is string && data.flowId.size() <= 128)) &&
+        (!('author' in data) || (data.author is string && data.author.size() <= 100));
+    }
+
+    function isValidUser(data) {
+      return data.keys().hasAll(['username']) &&
+        data.username is string && data.username.size() > 0 && data.username.size() <= 100;
+    }
+
+    // Diagnostic connectivity check
+    match /test/{testId} {
+      allow get: if true;
+    }
+
+    match /news/{newsId} {
+      allow get, list: if true;
+      allow create: if isValidId(newsId) && isValidNews(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+
+    match /flows/{flowId} {
+      allow get, list: if true;
+      allow create: if isValidId(flowId) && isValidFlow(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+
+    match /replies/{replyId} {
+      allow get, list: if true;
+      allow create: if isValidId(replyId) && isValidReply(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow get, list: if true;
+      allow create: if isValidId(userId) && isValidUser(request.resource.data);
+      allow update, delete: if isAdmin();
+    }
+  }
+}
